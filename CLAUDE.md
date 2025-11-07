@@ -142,7 +142,7 @@ See `deployment.md` for detailed setup instructions.
 ## Important Notes
 
 - Always regenerate frontend client after backend OpenAPI schema changes
-- Backend reads `.env` from parent directory (`../env` relative to `backend/`)
+- Backend reads `.env` from parent directory (`../.env` relative to `backend/`)
 - Database migrations must be committed to git
 - Pre-commit hooks enforce code formatting (Ruff for Python, Biome for TypeScript)
 - Use `uv` for Python package management (not pip/poetry)
