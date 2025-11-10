@@ -262,7 +262,7 @@ def read_items(session: SessionDep, current_user: CurrentUser):
 - In Docker: `POSTGRES_SERVER=db` (service name)
 - Local dev: `POSTGRES_SERVER=localhost` (assumes local PostgreSQL)
 - Virtual environment at `backend/.venv/`
-- Python 3.10+ required (specified in `pyproject.toml`)
+- Python 3.12 required (specified in `pyproject.toml`)
 
 ## Common Issues
 
