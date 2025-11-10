@@ -15,9 +15,15 @@ import { Route as RecoverPasswordRouteImport } from './routes/recover-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutSourceDetailRouteImport } from './routes/_layout/source-detail'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
+import { Route as LayoutModelInsightsRouteImport } from './routes/_layout/model-insights'
 import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
+import { Route as LayoutDashboardRouteImport } from './routes/_layout/dashboard'
+import { Route as LayoutCompareSourcesRouteImport } from './routes/_layout/compare-sources'
+import { Route as LayoutAppSettingsRouteImport } from './routes/_layout/app-settings'
 import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
+import { Route as LayoutAboutRouteImport } from './routes/_layout/about'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -48,9 +54,19 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutSourceDetailRoute = LayoutSourceDetailRouteImport.update({
+  id: '/source-detail',
+  path: '/source-detail',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutModelInsightsRoute = LayoutModelInsightsRouteImport.update({
+  id: '/model-insights',
+  path: '/model-insights',
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutItemsRoute = LayoutItemsRouteImport.update({
@@ -58,9 +74,29 @@ const LayoutItemsRoute = LayoutItemsRouteImport.update({
   path: '/items',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutDashboardRoute = LayoutDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCompareSourcesRoute = LayoutCompareSourcesRouteImport.update({
+  id: '/compare-sources',
+  path: '/compare-sources',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutAppSettingsRoute = LayoutAppSettingsRouteImport.update({
+  id: '/app-settings',
+  path: '/app-settings',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutAdminRoute = LayoutAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutAboutRoute = LayoutAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -69,9 +105,15 @@ export interface FileRoutesByFullPath {
   '/recover-password': typeof RecoverPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/about': typeof LayoutAboutRoute
   '/admin': typeof LayoutAdminRoute
+  '/app-settings': typeof LayoutAppSettingsRoute
+  '/compare-sources': typeof LayoutCompareSourcesRoute
+  '/dashboard': typeof LayoutDashboardRoute
   '/items': typeof LayoutItemsRoute
+  '/model-insights': typeof LayoutModelInsightsRoute
   '/settings': typeof LayoutSettingsRoute
+  '/source-detail': typeof LayoutSourceDetailRoute
   '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesByTo {
@@ -79,9 +121,15 @@ export interface FileRoutesByTo {
   '/recover-password': typeof RecoverPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/about': typeof LayoutAboutRoute
   '/admin': typeof LayoutAdminRoute
+  '/app-settings': typeof LayoutAppSettingsRoute
+  '/compare-sources': typeof LayoutCompareSourcesRoute
+  '/dashboard': typeof LayoutDashboardRoute
   '/items': typeof LayoutItemsRoute
+  '/model-insights': typeof LayoutModelInsightsRoute
   '/settings': typeof LayoutSettingsRoute
+  '/source-detail': typeof LayoutSourceDetailRoute
   '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
@@ -91,9 +139,15 @@ export interface FileRoutesById {
   '/recover-password': typeof RecoverPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
+  '/_layout/about': typeof LayoutAboutRoute
   '/_layout/admin': typeof LayoutAdminRoute
+  '/_layout/app-settings': typeof LayoutAppSettingsRoute
+  '/_layout/compare-sources': typeof LayoutCompareSourcesRoute
+  '/_layout/dashboard': typeof LayoutDashboardRoute
   '/_layout/items': typeof LayoutItemsRoute
+  '/_layout/model-insights': typeof LayoutModelInsightsRoute
   '/_layout/settings': typeof LayoutSettingsRoute
+  '/_layout/source-detail': typeof LayoutSourceDetailRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
@@ -103,9 +157,15 @@ export interface FileRouteTypes {
     | '/recover-password'
     | '/reset-password'
     | '/signup'
+    | '/about'
     | '/admin'
+    | '/app-settings'
+    | '/compare-sources'
+    | '/dashboard'
     | '/items'
+    | '/model-insights'
     | '/settings'
+    | '/source-detail'
     | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -113,9 +173,15 @@ export interface FileRouteTypes {
     | '/recover-password'
     | '/reset-password'
     | '/signup'
+    | '/about'
     | '/admin'
+    | '/app-settings'
+    | '/compare-sources'
+    | '/dashboard'
     | '/items'
+    | '/model-insights'
     | '/settings'
+    | '/source-detail'
     | '/'
   id:
     | '__root__'
@@ -124,9 +190,15 @@ export interface FileRouteTypes {
     | '/recover-password'
     | '/reset-password'
     | '/signup'
+    | '/_layout/about'
     | '/_layout/admin'
+    | '/_layout/app-settings'
+    | '/_layout/compare-sources'
+    | '/_layout/dashboard'
     | '/_layout/items'
+    | '/_layout/model-insights'
     | '/_layout/settings'
+    | '/_layout/source-detail'
     | '/_layout/'
   fileRoutesById: FileRoutesById
 }
@@ -182,11 +254,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/source-detail': {
+      id: '/_layout/source-detail'
+      path: '/source-detail'
+      fullPath: '/source-detail'
+      preLoaderRoute: typeof LayoutSourceDetailRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/settings': {
       id: '/_layout/settings'
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof LayoutSettingsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/model-insights': {
+      id: '/_layout/model-insights'
+      path: '/model-insights'
+      fullPath: '/model-insights'
+      preLoaderRoute: typeof LayoutModelInsightsRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/items': {
@@ -196,6 +282,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutItemsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/dashboard': {
+      id: '/_layout/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof LayoutDashboardRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/compare-sources': {
+      id: '/_layout/compare-sources'
+      path: '/compare-sources'
+      fullPath: '/compare-sources'
+      preLoaderRoute: typeof LayoutCompareSourcesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/app-settings': {
+      id: '/_layout/app-settings'
+      path: '/app-settings'
+      fullPath: '/app-settings'
+      preLoaderRoute: typeof LayoutAppSettingsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/admin': {
       id: '/_layout/admin'
       path: '/admin'
@@ -203,20 +310,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAdminRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/about': {
+      id: '/_layout/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof LayoutAboutRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
+  LayoutAboutRoute: typeof LayoutAboutRoute
   LayoutAdminRoute: typeof LayoutAdminRoute
+  LayoutAppSettingsRoute: typeof LayoutAppSettingsRoute
+  LayoutCompareSourcesRoute: typeof LayoutCompareSourcesRoute
+  LayoutDashboardRoute: typeof LayoutDashboardRoute
   LayoutItemsRoute: typeof LayoutItemsRoute
+  LayoutModelInsightsRoute: typeof LayoutModelInsightsRoute
   LayoutSettingsRoute: typeof LayoutSettingsRoute
+  LayoutSourceDetailRoute: typeof LayoutSourceDetailRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutAboutRoute: LayoutAboutRoute,
   LayoutAdminRoute: LayoutAdminRoute,
+  LayoutAppSettingsRoute: LayoutAppSettingsRoute,
+  LayoutCompareSourcesRoute: LayoutCompareSourcesRoute,
+  LayoutDashboardRoute: LayoutDashboardRoute,
   LayoutItemsRoute: LayoutItemsRoute,
+  LayoutModelInsightsRoute: LayoutModelInsightsRoute,
   LayoutSettingsRoute: LayoutSettingsRoute,
+  LayoutSourceDetailRoute: LayoutSourceDetailRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 
