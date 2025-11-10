@@ -1,4 +1,4 @@
-import { Container, Image, Input, Text } from "@chakra-ui/react"
+import { Container, Image, Input, Spinner, Text } from "@chakra-ui/react"
 import {
   createFileRoute,
   Link as RouterLink,
@@ -98,8 +98,9 @@ function Login() {
       <RouterLink to="/recover-password" className="main-link">
         Forgot Password?
       </RouterLink>
-      <Button variant="solid" type="submit" loading={isSubmitting} size="md">
-        Log In
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting && <Spinner />}
+        {isSubmitting ? "Logging In..." : "Log In"}
       </Button>
       <Text>
         Don't have an account?{" "}

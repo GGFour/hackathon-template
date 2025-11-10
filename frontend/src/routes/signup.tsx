@@ -1,4 +1,4 @@
-import { Container, Flex, Image, Input, Text } from "@chakra-ui/react"
+import { Container, Flex, Image, Input, Spinner, Text } from "@chakra-ui/react"
 import {
   createFileRoute,
   Link as RouterLink,
@@ -115,8 +115,9 @@ function SignUp() {
           placeholder="Confirm Password"
           errors={errors}
         />
-        <Button variant="solid" type="submit" loading={isSubmitting}>
-          Sign Up
+        <Button variant="destructive" type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner />}
+          {isSubmitting ? "Sighing up..." : "Sign Up"}
         </Button>
         <Text>
           Already have an account?{" "}
