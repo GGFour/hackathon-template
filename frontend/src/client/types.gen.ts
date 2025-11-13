@@ -14,15 +14,28 @@ export type HTTPValidationError = {
 };
 
 export type ItemCreate = {
+    type: string;
     title: string;
     description?: (string | null);
+    meta_data?: {
+        [key: string]: unknown;
+    };
+    owner_id?: (string | null);
+    organization_id?: (string | null);
 };
 
 export type ItemPublic = {
+    type: string;
     title: string;
     description?: (string | null);
+    meta_data?: {
+        [key: string]: unknown;
+    };
     id: string;
     owner_id: string;
+    organization_id: (string | null);
+    created_at: string;
+    updated_at: (string | null);
 };
 
 export type ItemsPublic = {
@@ -31,8 +44,12 @@ export type ItemsPublic = {
 };
 
 export type ItemUpdate = {
+    type?: (string | null);
     title?: (string | null);
     description?: (string | null);
+    meta_data?: ({
+    [key: string]: unknown;
+} | null);
 };
 
 export type Message = {
@@ -63,18 +80,28 @@ export type UpdatePassword = {
 
 export type UserCreate = {
     email: string;
+    full_name?: (string | null);
     is_active?: boolean;
     is_superuser?: boolean;
-    full_name?: (string | null);
+    auth_provider?: string;
+    extras?: {
+        [key: string]: unknown;
+    };
     password: string;
 };
 
 export type UserPublic = {
     email: string;
+    full_name?: (string | null);
     is_active?: boolean;
     is_superuser?: boolean;
-    full_name?: (string | null);
+    auth_provider?: string;
+    extras?: {
+        [key: string]: unknown;
+    };
     id: string;
+    created_at: string;
+    updated_at: (string | null);
 };
 
 export type UserRegister = {
@@ -90,15 +117,22 @@ export type UsersPublic = {
 
 export type UserUpdate = {
     email?: (string | null);
-    is_active?: boolean;
-    is_superuser?: boolean;
     full_name?: (string | null);
+    is_active?: (boolean | null);
+    is_superuser?: (boolean | null);
+    auth_provider?: (string | null);
+    extras?: ({
+    [key: string]: unknown;
+} | null);
     password?: (string | null);
 };
 
 export type UserUpdateMe = {
     full_name?: (string | null);
     email?: (string | null);
+    extras?: ({
+    [key: string]: unknown;
+} | null);
 };
 
 export type ValidationError = {

@@ -32,6 +32,9 @@ export class ItemsService {
     /**
      * Create Item
      * Create new item.
+     *
+     * Backwards compatibility: allow legacy clients/tests omitting 'type'.
+     * If missing, inject default before validation.
      * @param data The data for the request.
      * @param data.requestBody
      * @returns ItemPublic Successful Response

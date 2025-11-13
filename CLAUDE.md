@@ -115,7 +115,7 @@ Root `.env` file contains all configuration. Key variables:
 ## Common Workflows
 
 ### Adding a New Model
-1. Define model in `backend/app/models.py` (table model + Pydantic schemas)
+1. Define model in `backend/app/models/` (table model + Pydantic schemas)
 2. Add CRUD functions in `backend/app/crud.py`
 3. Create routes in `backend/app/api/routes/` (import in `api/main.py`)
 4. Create migration: `docker compose exec backend bash` then `alembic revision --autogenerate -m "description"`
@@ -124,7 +124,7 @@ Root `.env` file contains all configuration. Key variables:
 7. Add frontend components/hooks using generated service
 
 ### Modifying Existing Model
-1. Update model in `backend/app/models.py`
+1. Update model in `backend/app/models/`
 2. Create migration: `docker compose exec backend bash` then `alembic revision --autogenerate -m "description"`
 3. Apply migration: `alembic upgrade head`
 4. Update CRUD/routes if needed
