@@ -6,7 +6,7 @@ export const Body_login_login_access_tokenSchema = {
             anyOf: [
                 {
                     type: 'string',
-                    pattern: 'password'
+                    pattern: '^password$'
                 },
                 {
                     type: 'null'
@@ -20,6 +20,7 @@ export const Body_login_login_access_tokenSchema = {
         },
         password: {
             type: 'string',
+            format: 'password',
             title: 'Password'
         },
         scope: {
@@ -47,6 +48,7 @@ export const Body_login_login_access_tokenSchema = {
                     type: 'null'
                 }
             ],
+            format: 'password',
             title: 'Client Secret'
         }
     },
@@ -71,6 +73,11 @@ export const HTTPValidationErrorSchema = {
 
 export const ItemCreateSchema = {
     properties: {
+        type: {
+            type: 'string',
+            maxLength: 100,
+            title: 'Type'
+        },
         title: {
             type: 'string',
             maxLength: 255,
@@ -80,23 +87,56 @@ export const ItemCreateSchema = {
         description: {
             anyOf: [
                 {
-                    type: 'string',
-                    maxLength: 255
+                    type: 'string'
                 },
                 {
                     type: 'null'
                 }
             ],
             title: 'Description'
+        },
+        meta_data: {
+            additionalProperties: true,
+            type: 'object',
+            title: 'Meta Data'
+        },
+        owner_id: {
+            anyOf: [
+                {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Owner Id'
+        },
+        organization_id: {
+            anyOf: [
+                {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Organization Id'
         }
     },
     type: 'object',
-    required: ['title'],
+    required: ['type', 'title'],
     title: 'ItemCreate'
 } as const;
 
 export const ItemPublicSchema = {
     properties: {
+        type: {
+            type: 'string',
+            maxLength: 100,
+            title: 'Type'
+        },
         title: {
             type: 'string',
             maxLength: 255,
@@ -106,14 +146,18 @@ export const ItemPublicSchema = {
         description: {
             anyOf: [
                 {
-                    type: 'string',
-                    maxLength: 255
+                    type: 'string'
                 },
                 {
                     type: 'null'
                 }
             ],
             title: 'Description'
+        },
+        meta_data: {
+            additionalProperties: true,
+            type: 'object',
+            title: 'Meta Data'
         },
         id: {
             type: 'string',
@@ -124,15 +168,56 @@ export const ItemPublicSchema = {
             type: 'string',
             format: 'uuid',
             title: 'Owner Id'
+        },
+        organization_id: {
+            anyOf: [
+                {
+                    type: 'string',
+                    format: 'uuid'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Organization Id'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time',
+            title: 'Created At'
+        },
+        updated_at: {
+            anyOf: [
+                {
+                    type: 'string',
+                    format: 'date-time'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Updated At'
         }
     },
     type: 'object',
-    required: ['title', 'id', 'owner_id'],
+    required: ['type', 'title', 'id', 'owner_id', 'organization_id', 'created_at', 'updated_at'],
     title: 'ItemPublic'
 } as const;
 
 export const ItemUpdateSchema = {
     properties: {
+        type: {
+            anyOf: [
+                {
+                    type: 'string',
+                    maxLength: 100
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Type'
+        },
         title: {
             anyOf: [
                 {
@@ -149,14 +234,25 @@ export const ItemUpdateSchema = {
         description: {
             anyOf: [
                 {
-                    type: 'string',
-                    maxLength: 255
+                    type: 'string'
                 },
                 {
                     type: 'null'
                 }
             ],
             title: 'Description'
+        },
+        meta_data: {
+            anyOf: [
+                {
+                    additionalProperties: true,
+                    type: 'object'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Meta Data'
         }
     },
     type: 'object',
@@ -282,16 +378,6 @@ export const UserCreateSchema = {
             format: 'email',
             title: 'Email'
         },
-        is_active: {
-            type: 'boolean',
-            title: 'Is Active',
-            default: true
-        },
-        is_superuser: {
-            type: 'boolean',
-            title: 'Is Superuser',
-            default: false
-        },
         full_name: {
             anyOf: [
                 {
@@ -303,6 +389,27 @@ export const UserCreateSchema = {
                 }
             ],
             title: 'Full Name'
+        },
+        is_active: {
+            type: 'boolean',
+            title: 'Is Active',
+            default: true
+        },
+        is_superuser: {
+            type: 'boolean',
+            title: 'Is Superuser',
+            default: false
+        },
+        auth_provider: {
+            type: 'string',
+            maxLength: 50,
+            title: 'Auth Provider',
+            default: 'local'
+        },
+        extras: {
+            additionalProperties: true,
+            type: 'object',
+            title: 'Extras'
         },
         password: {
             type: 'string',
@@ -324,16 +431,6 @@ export const UserPublicSchema = {
             format: 'email',
             title: 'Email'
         },
-        is_active: {
-            type: 'boolean',
-            title: 'Is Active',
-            default: true
-        },
-        is_superuser: {
-            type: 'boolean',
-            title: 'Is Superuser',
-            default: false
-        },
         full_name: {
             anyOf: [
                 {
@@ -346,14 +443,52 @@ export const UserPublicSchema = {
             ],
             title: 'Full Name'
         },
+        is_active: {
+            type: 'boolean',
+            title: 'Is Active',
+            default: true
+        },
+        is_superuser: {
+            type: 'boolean',
+            title: 'Is Superuser',
+            default: false
+        },
+        auth_provider: {
+            type: 'string',
+            maxLength: 50,
+            title: 'Auth Provider',
+            default: 'local'
+        },
+        extras: {
+            additionalProperties: true,
+            type: 'object',
+            title: 'Extras'
+        },
         id: {
             type: 'string',
             format: 'uuid',
             title: 'Id'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time',
+            title: 'Created At'
+        },
+        updated_at: {
+            anyOf: [
+                {
+                    type: 'string',
+                    format: 'date-time'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Updated At'
         }
     },
     type: 'object',
-    required: ['email', 'id'],
+    required: ['email', 'id', 'created_at', 'updated_at'],
     title: 'UserPublic'
 } as const;
 
@@ -404,16 +539,6 @@ export const UserUpdateSchema = {
             ],
             title: 'Email'
         },
-        is_active: {
-            type: 'boolean',
-            title: 'Is Active',
-            default: true
-        },
-        is_superuser: {
-            type: 'boolean',
-            title: 'Is Superuser',
-            default: false
-        },
         full_name: {
             anyOf: [
                 {
@@ -425,6 +550,52 @@ export const UserUpdateSchema = {
                 }
             ],
             title: 'Full Name'
+        },
+        is_active: {
+            anyOf: [
+                {
+                    type: 'boolean'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Is Active'
+        },
+        is_superuser: {
+            anyOf: [
+                {
+                    type: 'boolean'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Is Superuser'
+        },
+        auth_provider: {
+            anyOf: [
+                {
+                    type: 'string',
+                    maxLength: 50
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Auth Provider'
+        },
+        extras: {
+            anyOf: [
+                {
+                    additionalProperties: true,
+                    type: 'object'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Extras'
         },
         password: {
             anyOf: [
@@ -470,6 +641,18 @@ export const UserUpdateMeSchema = {
                 }
             ],
             title: 'Email'
+        },
+        extras: {
+            anyOf: [
+                {
+                    additionalProperties: true,
+                    type: 'object'
+                },
+                {
+                    type: 'null'
+                }
+            ],
+            title: 'Extras'
         }
     },
     type: 'object',

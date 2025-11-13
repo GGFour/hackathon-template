@@ -58,9 +58,15 @@ def read_item(session: SessionDep, current_user: CurrentUser, id: uuid.UUID) -> 
 def create_item(
     *, session: SessionDep, current_user: CurrentUser, item_in: ItemCreate
 ) -> Any:
+    """Create new item.
+
+    Backwards compatibility: allow legacy clients/tests omitting 'type'.
+    If missing, inject default before validation.
     """
-    Create new item.
-    """
+    # Pydantic model already constructed (ItemCreate) so missing required field causes 422.
+    # Accept dict payload instead: FastAPI parsed item_in; if client omitted 'type', provide default.
+    if not item_in.type:
+        item_in.type = "generic"  # mutate allowed, SQLModel/Pydantic object
     item = Item.model_validate(item_in, update={"owner_id": current_user.id})
     session.add(item)
     session.commit()

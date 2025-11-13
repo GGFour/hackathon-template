@@ -135,7 +135,7 @@ backend/app/
 - `routes/private.py` - Private health endpoint (no CORS)
 
 ### Database Models
-**File:** `app/models.py`
+**File:** `app/models/`
 
 **Pattern:** Each entity has multiple model classes:
 - `{Entity}Base` - Shared properties (SQLModel)

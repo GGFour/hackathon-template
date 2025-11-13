@@ -111,6 +111,21 @@ const AddItem = () => {
                   type="text"
                 />
               </Field>
+
+              <Field
+                required
+                invalid={!!errors.type}
+                errorText={errors.type?.message}
+                label="Type"
+              >
+                <Input
+                  {...register("type", {
+                    required: "Type is required.",
+                  })}
+                  placeholder="generic"
+                  type="text"
+                />
+              </Field>
             </VStack>
           </DialogBody>
 
